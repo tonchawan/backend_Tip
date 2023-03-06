@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SubscriberController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,8 +19,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/user', 'UserController@index');
-Route::get('/user/{id}', 'UserController@show');
-Route::post('/user', 'UserController@store');
-Route::put('/user/{id}', 'UserController@update');
-Route::delete('/user/{id}', 'UserController@destroy');
+Route::post('/subscribe', [SubscriberController::class, 'subscribe']);
