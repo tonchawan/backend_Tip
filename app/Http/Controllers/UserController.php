@@ -158,7 +158,7 @@ class UserController extends Controller
     {
         $status = "Success";
         $resp = 200;
-        $email = "son_1122@hotmail.com";
+        $email = "tonchawan50@hotmail.com";
         $password = "1234";
         Mail::to($email)->send(new UsersendEmail($email, $password));
     }
@@ -206,8 +206,8 @@ class UserController extends Controller
         $Users = User::all()->toArray();
 
         $pdf = Pdf::loadView('pdf.index', array('Users' => $Users));
-        $username = "son_1122@hotmail.com";
-        $email = "son_1122@hotmail.com";
+        $username = "tonchawan50@gmail.com";
+        $email = "tonchawan50@gmail.com";
         $password = "123456";
         $data = [];
         $data['username'] =$username;
