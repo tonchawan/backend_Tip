@@ -17,7 +17,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/user', 'UserController@[methodName]');
-Route::post('/user', 'UserController@[methodName]');
-Route::put('/user/{id}', 'UserController@[methodName]');
-Route::delete('/user/{id}', 'UserController@[methodName]');
+Route::get('/register', 'RegisterController@index');
+Route::post('/user', 'RegisterController@[methodName]');
+Route::put('/user/{id}', 'RegisterController@[methodName]');
+Route::delete('/user/{id}', 'RegisterController@[methodName]');

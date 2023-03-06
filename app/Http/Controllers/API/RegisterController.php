@@ -1,8 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\Controller;
+use App\Models\Tip\Register;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\RegistersendEmail;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class RegisterController extends Controller
 {
@@ -14,7 +19,7 @@ class RegisterController extends Controller
 
         $counTotal = Register::count();
         $registers = Register::select(
-            'id',
+            'username',
             'phone',
             'name',
             'lastName',
