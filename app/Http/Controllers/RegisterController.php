@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\Tip\Register;
+use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\RegistersendEmail;
@@ -17,18 +17,26 @@ class RegisterController extends Controller
         $status = "Success";
         $resp = 200;
 
-        $counTotal = Register::count();
-        $registers = Register::select(
+        $counTotal = Customer::count();
+        $customers = Customer::select(
             'username',
-            'phone',
+            'password',
             'name',
-            'lastName',
+            'lastname',
+            'prefix',
+            'address',
+            'phone',
+            'email',
+            'registerId',
+            'govermentId',
+            'dateRegister',
+            'packageId'
         )->orderBy('id')->skip(0)->take(10)->get();
 
         return response()->json([
             "status_PHPHPHP" => $status,
             "response" => $resp,
-            "data" => $registers,
+            "data" => $customers,
             "count" => $counTotal,
         ], $resp);
     }
@@ -42,8 +50,11 @@ class RegisterController extends Controller
         $hashPassword = bcrypt($request->password);
         $datas = $request->all();
         $datas['password'] = $hashPassword;
-        Register::create($datas);
-        Mail::to("tonchawan50@gmail.com")->send(new RegistersendEmail($request->username, $request->password));
+        $email = $request->email;
+
+
+        Customer::create($datas);
+        Mail::to($email)->send(new RegistersendEmail($request->username, $request->password));
         return response()
             ->json([
                 "status_PHPHPHP" => $status,
@@ -61,13 +72,13 @@ class RegisterController extends Controller
         //
         $status = "Success";
         $resp = 200;
-        $register = Register::find($id);
+        $customer = Customer::find($id);
 
         return response()
             ->json([
                 "status_PHPHPHP" => $status,
                 "response" => $resp,
-                "data" => $register,
+                "data" => $customer,
             ], $resp);
     }
 
@@ -76,10 +87,10 @@ class RegisterController extends Controller
         //
         $status = "Success";
         $resp = 200;
-        $register = Register::find($id);
+        $customer = Customer::find($id);
 
-        if ($register) {
-            $register->update($request->all());
+        if ($customer) {
+            $customer->update($request->all());
         } else {
             $status = "Error";
             $resp = 400;
@@ -94,10 +105,10 @@ class RegisterController extends Controller
     {
         $status = "Success";
         $resp = 200;
-        $register = Register::find($id);
+        $customer = Customer::find($id);
 
-        if ($register) {
-            $register->delete();
+        if ($customer) {
+            $customer->delete();
         } else {
             $status = "Error";
             $resp = 400;
@@ -123,10 +134,10 @@ class RegisterController extends Controller
         $resp = 200;
         $username = $request->username;
         $pass = $request->password;
-        $register = Register::where('username', $username)->first();
-        // dd($register);
-        if ($register) {
-            if (\Hash::check($pass, $register->password)) {
+        $customer = Customer::where('username', $username)->first();
+        // dd($customer);
+        if ($customer) {
+            if (\Hash::check($pass, $customer->password)) {
                 return response()->json([
                     "status" => $status,
                     "response" => $resp,
@@ -148,8 +159,8 @@ class RegisterController extends Controller
 
     public function loadPdf(){
         $data=[];
-//        $registers=Register::all()->toArray();
-        // dd($registers);
+//        $customers=Customer::all()->toArray();
+        // dd($customers);
         $pdf = Pdf::loadView('pdf.index');
         // $pdf = Pdf::loadView('pdf.invoice', $data);
         return $pdf->download('invoice.pdf');
@@ -159,9 +170,9 @@ class RegisterController extends Controller
     public function sendEmailPdf(){
         $datas = [];
 
-        $registers = Register::all()->toArray();
+        $customers = Customer::all()->toArray();
 
-        $pdf = Pdf::loadView('pdf.index', array('registers' => $registers));
+        $pdf = Pdf::loadView('pdf.index', array('customers' => $customers));
         $username = "tonchawan50@gmail.com";
         $email = "tonchawan50@gmail.com";
         $password = "123456";
@@ -170,7 +181,7 @@ class RegisterController extends Controller
         $data['email'] = $email;
         $data['password'] = $password;
         $data['title'] = "ทดสอบ";
-        Mail::send('emails.register-send-email', $data, function($message)use($data, $pdf) {
+        Mail::send('emails.customer-send-email', $data, function($message)use($data, $pdf) {
             $message->to($data["email"], $data["email"])
                     ->subject($data["title"])
                     ->attachData($pdf->output(), "text.pdf");

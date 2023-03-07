@@ -32,7 +32,7 @@ class RegistersendEmail extends Mailable
     public function build()
     {
         return $this->subject('Thank you for subscribing to our newsletter')
-        ->markdown('emails.register-send-email')
+        ->markdown('emails.registersendEmail')
         ->with('username',$this->username)
         ->with('password',$this->password);
     }

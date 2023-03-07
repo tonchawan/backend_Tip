@@ -23,5 +23,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/subscribe', [SubscriberController::class, 'subscribe']);
 
-Route::resource('/tip/register', 'RegisterController');
+Route::resource('/tip/register', RegisterController::class);
 Route::get('/test', 'RegisterController@testEmail');
