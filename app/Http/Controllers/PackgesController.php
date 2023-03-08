@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use App\Mail\Pdf;
 use App\Models\Package;
 use Illuminate\Http\Request;
@@ -20,12 +21,11 @@ class PackgesController extends Controller
         $status = "Success";
         $resp = 200;
 
-        $counTotal = Register::count();
-        $registers = Register::select(
-            'id',
-            'phone',
-            'name',
-            'lastName',
+        $counTotal = Package::count();
+        $registers = Package::select(
+            'title',
+            'premium',
+            'insuranceDetail'
         )->orderBy('id')->skip(0)->take(10)->get();
 
         return response()->json([
@@ -34,5 +34,22 @@ class PackgesController extends Controller
             "data" => $registers,
             "count" => $counTotal,
         ], $resp);
+    }
+
+    public function store(Request $request)
+    {
+        $status = "Success";
+        $resp = 200;
+        // dd($request);
+
+        $datas = $request->all();
+
+
+        Package::create($datas);
+        return response()
+            ->json([
+                "status_PHPHPHP" => $status,
+                "response" => $resp
+            ], $resp);
     }
 }

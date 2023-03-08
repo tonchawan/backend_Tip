@@ -4,7 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SubscriberController;
 use App\Http\Controllers\RegisterController;
-
+use App\Http\Controllers\PackgesController;
+use App\Http\Controllers\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,4 +25,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/subscribe', [SubscriberController::class, 'subscribe']);
 
 Route::resource('/tip/register', RegisterController::class);
-Route::get('/test', 'RegisterController@testEmail');
+Route::post('/login', [RegisterController::class, 'checkPassword']);
+
+Route::get('/buy', [OrderController::class, 'index']);
+
+Route::get('/package', [PackgesController::class, 'index']);
+Route::post('/package', [PackgesController::class, 'store']);
+
+Route::get('/buy', [OrderController::class, 'index']);
+Route::post('/buy', [OrderController::class, 'store']);

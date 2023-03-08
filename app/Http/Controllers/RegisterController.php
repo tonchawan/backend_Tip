@@ -61,11 +61,6 @@ class RegisterController extends Controller
                 "response" => $resp
             ], $resp);
     }
-    // public function testEmail(){
-    //     $email = "tonchawan50@gmail.com";
-    //     $password="1234";
-    //     Mail::to($email)->send(new RegistersendEmail($email,$password));
-    // }
 
     public function show($id)
     {
@@ -88,6 +83,7 @@ class RegisterController extends Controller
         $status = "Success";
         $resp = 200;
         $customer = Customer::find($id);
+        $request['password'] = bcrypt($request->password);
 
         if ($customer) {
             $customer->update($request->all());
@@ -119,14 +115,14 @@ class RegisterController extends Controller
         ], $resp);
     }
 
-    public function testEmail()
-    {
-        $status = "Success";
-        $resp = 200;
-        $email = "tonchawan50@gmail.com";
-        $password = "1234";
-        Mail::to($email)->send(new RegistersendEmail($email, $password));
-    }
+    // public function testEmail()
+    // {
+    //     $status = "Success";
+    //     $resp = 200;
+    //     $email = "tonchawan50@gmail.com";
+    //     $password = "1234";
+    //     Mail::to($email)->send(new RegistersendEmail($email, $password));
+    // }
 
     public function checkPassword(Request $request)
     {
