@@ -62,11 +62,11 @@ class OrderController extends Controller
 
     public function loadPdf(){
         $data=[];
+        $pdf = Pdf::loadView('invoice');
+        return $pdf->download('invoice.pdf');
 //        $customers=Customer::all()->toArray();
         // dd($customers);
-        $pdf = Pdf::loadView('pdf.index');
         // $pdf = Pdf::loadView('pdf.invoice', $data);
-        return $pdf->download('invoice.pdf');
 
     }
 
