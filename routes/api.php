@@ -26,6 +26,7 @@ Route::post('/subscribe', [SubscriberController::class, 'subscribe']);
 
 Route::resource('/tip/register', RegisterController::class);
 Route::post('/login', [RegisterController::class, 'checkPassword']);
+Route::post('/pdftomail', [RegisterController:: class, 'sendEmailPdf']);
 
 Route::get('/buy', [OrderController::class, 'index']);
 
@@ -34,5 +35,5 @@ Route::post('/package', [PackgesController::class, 'store']);
 
 Route::get('/buy', [OrderController::class, 'index']);
 Route::post('/buy', [OrderController::class, 'store']);
-Route::get('/buyPdf', [OrderController::class, 'loadPdf']);
+// Route::get('/buyPdf', [OrderController::class, 'loadPdf']);
 

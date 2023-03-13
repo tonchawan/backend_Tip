@@ -157,7 +157,7 @@ class RegisterController extends Controller
         $data=[];
 //        $customers=Customer::all()->toArray();
         // dd($customers);
-        $pdf = Pdf::loadView('pdf.index');
+        $pdf = Pdf::loadView('invoice');
         // $pdf = Pdf::loadView('pdf.invoice', $data);
         return $pdf->download('invoice.pdf');
 
@@ -168,19 +168,15 @@ class RegisterController extends Controller
 
         $customers = Customer::all()->toArray();
 
-        $pdf = Pdf::loadView('pdf.index', array('customers' => $customers));
-        $username = "tonchawan50@gmail.com";
+        $pdf = Pdf::loadView('invoice');
         $email = "tonchawan50@gmail.com";
-        $password = "123456";
-        $data = [];
-        $data['username'] =$username;
+
         $data['email'] = $email;
-        $data['password'] = $password;
         $data['title'] = "ทดสอบ";
-        Mail::send('emails.customer-send-email', $data, function($message)use($data, $pdf) {
-            $message->to($data["email"], $data["email"])
+        Mail::send('emails.registersendEmail', $data, function($message)use($data, $pdf) {
+            $message->to($data["email"])
                     ->subject($data["title"])
-                    ->attachData($pdf->output(), "text.pdf");
+                    ->attachData($pdf->output(), "invoided.pdf");
         });
     }
 
