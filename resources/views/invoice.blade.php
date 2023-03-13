@@ -7,6 +7,20 @@
     <title>Invoice</title>
 </head>
 <body>
-   Hi
+
+   {{$data["userId"]}}
+<br />
+   {{$data["prefix"]}}
+<br />
+   {{$data["name"]}}
+<br />
+   {{$data["lastname"]}}
+<br />
+   {{$data["govermentId"]}}
+   <br />
+   {{$data["address"]}}
+<br />
+   {{$data["email"]}}
 </body>
 </html>
+

@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\RegistersendEmail;
 use Barryvdh\DomPDF\Facade\Pdf;
 
+
 class RegisterController extends Controller
 {
     public function index(Request $request)
@@ -163,13 +164,18 @@ class RegisterController extends Controller
 
     }
 
-    public function sendEmailPdf(){
+    public function sendEmailPdf(Request $request){
+        // dd($request->all());
         $datas = [];
 
-        $customers = Customer::all()->toArray();
-
-        $pdf = Pdf::loadView('invoice');
+        // $pdf = Pdf::loadView('invoice');
         $email = "tonchawan50@gmail.com";
+
+
+        $pdf = Pdf::loadView('invoice',[
+            "data"=>$request->all(),
+
+        ]);
 
         $data['email'] = $email;
         $data['title'] = "ทดสอบ";

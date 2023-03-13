@@ -1,12 +1,5 @@
-{{-- <x-mail::message> --}}
-    # Welcome to the first Newletter
-    {{-- Dear {{$name}}, --}}
-    We look forward to communicating more with you. For more information visit our blog.
+# Welcome to the first Newletter
 
-{{-- <x-mail::button :url="''">
-Button Text
-</x-mail::button>
+We look forward to communicating more with you. For more information visit our blog.
 
-Thanks,<br>
-{{ config('app.name') }}
-</x-mail::message> --}}
+{{}}

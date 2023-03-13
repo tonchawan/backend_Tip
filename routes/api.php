@@ -35,5 +35,5 @@ Route::post('/package', [PackgesController::class, 'store']);
 
 Route::get('/buy', [OrderController::class, 'index']);
 Route::post('/buy', [OrderController::class, 'store']);
-// Route::get('/buyPdf', [OrderController::class, 'loadPdf']);
+Route::post('/buyPdf', [OrderController::class, 'sendEmailPdf']);
 

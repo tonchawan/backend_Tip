@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
 {
@@ -70,6 +71,28 @@ class OrderController extends Controller
 
     }
 
+    public function sendEmailPdf(Request $request){
 
+        // post data to data base
+        $datas = $request->all();
+        Order::create($datas);
+        // dd($request->email);
+
+        // Generate PDF
+        $pdf = Pdf::loadView('invoice',[
+            "data"=>$request->all(),
+        ]);
+
+        // Send email with PDF
+        $data['email'] = $request->email;
+        $data['title'] = "Your Package From Dhipaya";
+        Mail::send('emails.registersendEmail', $data, function($message)use($data, $pdf) {
+            $message->to( $data['email'])
+                    ->subject($data["title"])
+                    ->attachData($pdf->output(), "invoided.pdf");
+        });
+    }
 
 }
+
+
