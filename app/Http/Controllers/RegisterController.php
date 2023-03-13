@@ -25,13 +25,13 @@ class RegisterController extends Controller
             'name',
             'lastname',
             'prefix',
-            'address',
+            'sub_district',
+            'district',
+            'provience',
             'phone',
             'email',
-            'registerId',
             'govermentId',
-            'dateRegister',
-            'packageId'
+
         )->orderBy('id')->skip(0)->take(10)->get();
 
         return response()->json([
@@ -154,36 +154,36 @@ class RegisterController extends Controller
         }
     }
 
-    public function loadPdf(){
-        $data=[];
-//        $customers=Customer::all()->toArray();
-        // dd($customers);
-        $pdf = Pdf::loadView('invoice');
-        // $pdf = Pdf::loadView('pdf.invoice', $data);
-        return $pdf->download('invoice.pdf');
+    // public function loadPdf(){
+    //     $data=[];
+    //     //$customers=Customer::all()->toArray();
+    //     // dd($customers);
+    //     $pdf = Pdf::loadView('invoice');
+    //     // $pdf = Pdf::loadView('pdf.invoice', $data);
+    //     return $pdf->download('invoice.pdf');
 
-    }
+    // }
 
-    public function sendEmailPdf(Request $request){
-        // dd($request->all());
-        $datas = [];
+    // public function sendEmailPdf(Request $request){
+    //     // dd($request->all());
+    //     $datas = [];
 
-        // $pdf = Pdf::loadView('invoice');
-        $email = "tonchawan50@gmail.com";
+    //     // $pdf = Pdf::loadView('invoice');
+    //     $email = "tonchawan50@gmail.com";
 
 
-        $pdf = Pdf::loadView('invoice',[
-            "data"=>$request->all(),
+    //     $pdf = Pdf::loadView('invoice',[
+    //         "data"=>$request->all(),
 
-        ]);
+    //     ]);
 
-        $data['email'] = $email;
-        $data['title'] = "ทดสอบ";
-        Mail::send('emails.registersendEmail', $data, function($message)use($data, $pdf) {
-            $message->to($data["email"])
-                    ->subject($data["title"])
-                    ->attachData($pdf->output(), "invoided.pdf");
-        });
-    }
+    //     $data['email'] = $email;
+    //     $data['title'] = "ทดสอบ";
+    //     Mail::send('emails.registersendEmail', $data, function($message)use($data, $pdf) {
+    //         $message->to($data["email"])
+    //                 ->subject($data["title"])
+    //                 ->attachData($pdf->output(), "invoided.pdf");
+    //     });
+    // }
 
 }

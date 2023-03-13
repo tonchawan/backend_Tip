@@ -15,11 +15,14 @@ return new class extends Migration
             $table->id();
 
             $table->string("userId");
+            $table->string("packageId");
+            $table->string("prefix");
             $table->string("name");
             $table->string("lastname");
-            $table->string("prefix");
             $table->string("govermentId");
-            $table->string("address");
+            $table->string("sub_district");
+            $table->string("district");
+            $table->string("provience");
             $table->string("email");
             $table->date("dob");
             $table->string("startDate");

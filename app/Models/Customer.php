@@ -44,13 +44,12 @@ class Customer extends Model
         'name',
         'lastname',
         'prefix',
-        'address',
+        'sub_district',
+        'district',
+        'provience',
         'phone',
         'email',
-        'registerId',
         'govermentId',
-        'dateRegister',
-        'packageId',
         'created_at',
         'updated_at'];
 }

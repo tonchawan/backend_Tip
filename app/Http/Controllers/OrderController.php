@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
 {
+    // get all Order detail
     public function index(Request $request)
     {
 
@@ -19,11 +20,14 @@ class OrderController extends Controller
         $counTotal = Order::count();
         $customers = Order::select(
             'userId',
+            'packageId',
             'name',
             'lastname',
             'prefix',
             'govermentId',
-            'address',
+            'sub_district',
+            'district',
+            'provience',
             'email',
             'dob',
             'startDate',
@@ -40,6 +44,25 @@ class OrderController extends Controller
             "count" => $counTotal,
         ], $resp);
     }
+
+    // get Order detail by user id
+    public function show($userId)
+    {
+        //
+        $status = "Success";
+        $resp = 200;
+        $order = Order::find($userId);
+
+        return response()
+            ->json([
+                "status_PHPHPHP" => $status,
+                "response" => $resp,
+                "data" => $customer,
+            ], $resp);
+    }
+
+
+
 
     public function store(Request $request)
     {

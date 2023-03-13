@@ -18,8 +18,11 @@
 <br />
    {{$data["govermentId"]}}
    <br />
-   {{$data["address"]}}
+   {{$data["sub_district"]}}
 <br />
+{{$data["district"]}}
+{{$data["provience"]}}
+
    {{$data["email"]}}
 </body>
 </html>

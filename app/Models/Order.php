@@ -34,11 +34,14 @@ class Order extends Model
      */
     protected $fillable = [
         'userId',
+        'packageId',
         'name',
         'lastname',
         'prefix',
         'govermentId',
-        'address',
+        'sub_district',
+        'district',
+        'provience',
         'email',
         'dob',
         'startDate',
