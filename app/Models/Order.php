@@ -41,5 +41,8 @@ class Order extends Model
         'beneficial',
         'OrderStatus',
         'created_at',
-        'updated_at'];
+        'updated_at',
+        'address',
+        'postcode'
+    ];
 }

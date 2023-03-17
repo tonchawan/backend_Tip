@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\Package;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Mail;
@@ -26,9 +27,11 @@ class OrderController extends Controller
             'lastname',
             'prefix',
             'govermentId',
+            'address',
             'sub_district',
             'district',
             'provience',
+            'postcode',
             'email',
             'dob',
             'startDate',
@@ -51,13 +54,13 @@ class OrderController extends Controller
     // get Order detail by user id
     public function show($userId)
     {
-
         $status = "Success";
         $resp = 200;
 
         // use where to find user id
         $order = Order::where('userId',$userId)->get();
         // dd($order);
+
         return response()
             ->json([
                 "status_PHPHPHP" => $status,
@@ -85,8 +88,6 @@ class OrderController extends Controller
         ], $resp);
     }
 
-
-
     //Down load PDF
     public function loadPdf(){
         $data=[];
@@ -103,7 +104,10 @@ class OrderController extends Controller
         $resp = 200;
         // dd($request);
 
+        $packageId= $request->packageId;
         $datas = $request->all();
+        $package = Package::find($packageId);
+        // dd($package);
 
         Order::create($datas)
         // after Create order update user status
@@ -113,7 +117,9 @@ class OrderController extends Controller
         // Generate PDF
         $pdf = Pdf::loadView('invoice',[
             "data"=>$request->all(),
+            "package" =>$package
         ]);
+        // return $pdf->download('invoice.pdf');
 
         $data['email'] = $request->email;
         $data['title'] = "Your Package From Dhipaya";
@@ -127,12 +133,12 @@ class OrderController extends Controller
         ->json([
             "status_PHPHPHP" => $status,
             "response" => $resp,
-            "data" => $request->all()
+            "data" => $request->all(),
+            "package"=>$package
         ], $resp);
-
     }
 
-     // Update buy order in database
+    // Update buy order in database
     public function update(Request $request, $id){
         $status="Success";
         $resp= 200;
@@ -141,9 +147,14 @@ class OrderController extends Controller
         if($order){
             $order->update($request->all());
 
+            // find package id from packageId
+            $packageId= $request->packageId;
+            $package = Package::find($packageId);
+
         // Generate PDF
         $pdf = Pdf::loadView('invoice',[
             "data"=>$request->all(),
+            "package" =>$package
         ]);
         // return $pdf->download('invoice.pdf');  // check that pdf is working
 
@@ -163,11 +174,13 @@ class OrderController extends Controller
         }else{
             $status = "Error";
             $resp = 400;
+            $package = "Not found";
         }
         return response() ->json([
             "status_PHPHPHP"=>$status,
             "response"=>$resp,
-            "data" =>$order
+            "data" =>$order,
+            "package"=>$package
         ],$resp);
     }
 
@@ -183,11 +196,17 @@ class OrderController extends Controller
         // post data to data base and update Order status to 0
         $datas = $request->all();
         Order::create($datas)->update(['OrderStatus' => 0]);
+
+        // find package id from packageId
+        $packageId= $request->packageId;
+        $package = Package::find($packageId);
+
         return response()
         ->json([
             "status_PHPHPHP" => $status,
             "response" => $resp,
-            "data" => $request->all()
+            "data" => $request->all(),
+            "package" =>$package
         ], $resp);
         // dd($request->all());
 
@@ -201,19 +220,27 @@ class OrderController extends Controller
 
         if($order){
             $order->update($request->all());
-        }else{
-            $status = "Error";
-            $resp = 400;
-        }
+
+             // find package id from packageId
+             $packageId= $request->packageId;
+             $package = Package::find($packageId);
+
 
         // force what ever input come. Change it to 0
         Order::find($id)
         ->update(['OrderStatus' => 0]);
 
+        }else{
+            $status = "Error";
+            $resp = 400;
+            $package= "Not select";
+        }
+
         return response() ->json([
             "status_PHPHPHP"=>$status,
             "response"=>$resp,
-            "data" =>$order
+            "data" =>$order,
+            "package"=>$package
         ],$resp);
     }
 
