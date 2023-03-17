@@ -20,6 +20,7 @@ class RegisterController extends Controller
 
         $counTotal = Customer::count();
         $customers = Customer::select(
+            'id',
             'username',
             'password',
             'name',
@@ -84,9 +85,13 @@ class RegisterController extends Controller
         $status = "Success";
         $resp = 200;
         $customer = Customer::find($id);
-        $request['password'] = bcrypt($request->password);
+        // $request['password'] = bcrypt($request->password);
 
         if ($customer) {
+
+            if($request->password){
+                $request['password']== bcrypt($request->password);
+            }
             $customer->update($request->all());
         } else {
             $status = "Error";
@@ -138,6 +143,8 @@ class RegisterController extends Controller
                 return response()->json([
                     "status" => $status,
                     "response" => $resp,
+                    "data" =>$customer
+
                 ], $resp);
             } else {
                 return response()->json([

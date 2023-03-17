@@ -14,8 +14,10 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
 
-            $table->string("userId");
+            $table->string("userId")->nullable();
+            $table->foreign("userId")->references('id')->on('coustomers')->onDelete('cascade');
             $table->string("packageId");
+            $table->foreign("packageId")->references('id')->on('packages')->onDelete('cascade');
             $table->string("prefix");
             $table->string("name");
             $table->string("lastname");
@@ -28,6 +30,8 @@ return new class extends Migration
             $table->string("startDate");
             $table->string("endDate");
             $table->string("beneficial");
+            $table->integer("OrderStatus");
+
 
             $table->timestamps();
         });

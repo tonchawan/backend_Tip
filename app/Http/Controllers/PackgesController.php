@@ -23,6 +23,7 @@ class PackgesController extends Controller
 
         $counTotal = Package::count();
         $registers = Package::select(
+            'id',
             'title',
             'premium',
             'insuranceDetail'

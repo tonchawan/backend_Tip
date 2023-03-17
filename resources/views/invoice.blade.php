@@ -8,22 +8,23 @@
 </head>
 <body>
 
-   {{$data["userId"]}}
+    {{$data["userId"]}}
 <br />
-   {{$data["prefix"]}}
+    {{$data["prefix"]}}
 <br />
-   {{$data["name"]}}
+    {{$data["name"]}}
 <br />
-   {{$data["lastname"]}}
+    {{$data["lastname"]}}
 <br />
-   {{$data["govermentId"]}}
-   <br />
-   {{$data["sub_district"]}}
+    {{$data["govermentId"]}}
 <br />
-{{$data["district"]}}
-{{$data["provience"]}}
-
-   {{$data["email"]}}
+    {{$data["sub_district"]}}
+<br />
+    {{$data["district"]}}
+<br />
+    {{$data["provience"]}}
+<br />
+    {{$data["email"]}}
 </body>
 </html>
 

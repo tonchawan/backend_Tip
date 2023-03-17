@@ -47,6 +47,7 @@ class Order extends Model
         'startDate',
         'endDate',
         'beneficial',
+        'OrderStatus',
         'created_at',
         'updated_at'];
 }

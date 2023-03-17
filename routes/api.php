@@ -22,19 +22,21 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/subscribe', [SubscriberController::class, 'subscribe']);
+// Route::post('/subscribe', [SubscriberController::class, 'subscribe']);
 
 Route::resource('/tip/register', RegisterController::class);
 Route::post('/login', [RegisterController::class, 'checkPassword']);
 
-Route::get('/buy', [OrderController::class, 'index']);
 
 Route::get('/package', [PackgesController::class, 'index']);
 Route::post('/package', [PackgesController::class, 'store']);
 
-Route::get('/buy', [OrderController::class, 'index']);
-Route::get('/view/{$userId}', [OrderController::class, 'show']);
-Route::post('/buy', [OrderController::class, 'store']);
-Route::post('/buyPdf', [OrderController::class, 'sendEmailPdf']);
+
+Route::get('/loadPdf', [OrderController::class, 'loadPdf']);
+Route::resource('/buy', OrderController::class); //get, get by userid, post(OrderStatus = 1), put(OrderStatus = 1) ,delete
+Route::post('/saveDraf' , [Ordercontroller::class, 'saveDraf']);
+Route::put('/updateDraf/{id}' , [Ordercontroller::class, 'updateDraf']);
+
+
 
 

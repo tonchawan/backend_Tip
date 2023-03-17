@@ -16,16 +16,16 @@ return new class extends Migration
             $table->timestamps();
 
             $table->string("prefix");
-            $table->string("username")->unique;
+            $table->string("username")->unique();
             $table->string("password");
             $table->string("name");
             $table->string("lastname");
             $table->string("sub_district");
             $table->string("district");
             $table->string("provience");
-            $table->string("phone");
-            $table->string("email")->unique;
-            $table->string("govermentId")->unique;
+            $table->string("phone")->nullable();
+            $table->string("email")->unique();
+            $table->string("govermentId")->unique();
 
         });
     }
