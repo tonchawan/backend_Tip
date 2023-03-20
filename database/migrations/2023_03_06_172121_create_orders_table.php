@@ -18,19 +18,19 @@ return new class extends Migration
             $table->foreign("userId")->references('id')->on('customers')->onDelete('cascade');
             $table->Integer("packageId");
             $table->foreign("packageId")->references('id')->on('packages')->onDelete('cascade');
-            $table->string("prefix");
-            $table->string("name");
-            $table->string("lastname");
+            $table->string("prefix")->nullable();
+            $table->string("name")->nullable();
+            $table->string("lastname")->nullable();
             $table->string("govermentId");
-            $table->string("sub_district");
-            $table->string("district");
-            $table->string("provience");
-            $table->string("email");
-            $table->date("dob");
-            $table->string("startDate");
-            $table->string("endDate");
-            $table->string("beneficial");
-            $table->integer("OrderStatus");
+            $table->string("sub_district")->nullable();
+            $table->string("district")->nullable();
+            $table->string("provience")->nullable();
+            $table->string("email")->nullable();
+            $table->date("dob")->nullable();
+            $table->string("startDate")->nullable();
+            $table->string("endDate")->nullable();
+            $table->string("beneficial")->nullable();
+            $table->integer("OrderStatus")->nullable();
 
 
             $table->timestamps();
