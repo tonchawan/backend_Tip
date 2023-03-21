@@ -156,26 +156,7 @@ class OrderController extends Controller
 
         $data['email'] = $request->email;
         $data['title'] = "Your Package From Dhipaya";
-
-
-        Mail::to($data['email'])->send(
-
-            // Generate new email and use these variable
-            new PdfMail(
-                $request->userId,
-                $request->prefix,
-                $request->name,
-                $request->lastname,
-                $request->email,
-                $request->govermentId,
-                $request->created_at,
-                $request->updated_at,
-                $package->title,
-            ),
-
-            // also bring data
-            $data,
-            function($message)use($data, $pdf) {
+        Mail::send('emails.pdf', $data, function($message)use($data, $pdf) {
             $message->to( $data['email'])
                     ->subject($data["title"])
                     ->attachData($pdf->output(), "invoided.pdf");
