@@ -22,7 +22,15 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Order extends Model
 {
+    public function customer(): BelongsTo
+    {
+        return $this->belongsTo(Customer::class);
+    }
 
+    public function package(): BelongsTo
+    {
+        return $this->belongsTo(Package::class);
+    }
 
     protected $fillable = [
         'userId',

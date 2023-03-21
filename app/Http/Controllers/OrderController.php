@@ -58,7 +58,12 @@ class OrderController extends Controller
         $resp = 200;
 
         // use where to find user id
-        $order = Order::where('userId',$userId)->get();
+        $order = Order::where('userId',$userId)
+
+          // ->join('other table', 'forenkey', '=', 'otherTable.Pimary key')
+          ->join('packages', 'orders.packageId', '=', 'packages.id')
+          ->select('orders.*','packages.title', 'packages.insuranceDetail', 'packages.premium')
+          ->get();
         // dd($order);
 
         return response()
@@ -68,6 +73,23 @@ class OrderController extends Controller
                 "data" => $order,
             ], $resp);
     }
+
+     // get Order detail by user id
+     public function orderId($id)
+     {
+         $status = "Success";
+         $resp = 200;
+
+         // use where to find user id
+         $order = Order::find($id);
+
+         return response()
+             ->json([
+                 "status_PHPHPHP" => $status,
+                 "response" => $resp,
+                 "data" => $order,
+             ], $resp);
+     }
 
     // delete order from data base
     public function destroy($id)
@@ -89,9 +111,19 @@ class OrderController extends Controller
     }
 
     //Down load PDF
-    public function loadPdf(){
-        $data=[];
-        $pdf = Pdf::loadView('invoice');
+    public function loadPdf(Request $request, $id){
+        $status = "Success";
+        $resp = 200;
+        $order = Order::find($id);
+        $packageId= $order->packageId;
+
+        $package = Package::find($packageId);
+      // dd($order);
+
+       $pdf = Pdf::loadView('invoice',[
+            "data"=>$order,
+            "package" =>$package
+        ]);
         return $pdf->download('invoice.pdf');
     }
 
@@ -244,6 +276,38 @@ class OrderController extends Controller
         ],$resp);
     }
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+     // Update buy order in database
+     public function getReport($userId){
+        $status = "Success";
+        $resp = 200;
+
+        // use where to find user id
+        $order = Order::where('userId',$userId)
+
+        // ->join('other table', 'forenkey', '=', 'otherTable.Pimary key')
+            ->join('packages', 'orders.packageId', '=', 'packages.id')
+            ->select('orders.*','packages.title', 'packages.insuranceDetail', 'packages.premium')
+            ->get();
+
+        // dd($order);
+
+        // Generate PDF
+        $pdf = Pdf::loadView('emails/getReport',[
+            "data"=> $order
+
+        ]);
+        return $pdf->download('getReport.pdf');  // check that pdf is working
+
+        return response() ->json([
+            "status_PHPHPHP"=>$status,
+            "response"=>$resp,
+            "data" =>$order,
+            "package"=>$package
+        ],$resp);
+    }
 }
+
 
 

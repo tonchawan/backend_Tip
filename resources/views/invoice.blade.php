@@ -1,46 +1,9 @@
-{{-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Invoice</title>
-</head>
-<body>
-
-    {{$data["userId"]}}
-<br />
-    {{$data["prefix"]}}
-<br />
-    {{$data["name"]}}
-<br />
-    {{$data["lastname"]}}
-<br />
-    {{$data["govermentId"]}}
-<br />
-    {{$data["sub_district"]}}
-<br />
-    {{$data["district"]}}
-<br />
-    {{$data["provience"]}}
-<br />
-    {{$data["email"]}}
-    <br />
-    {{$package["title"]}}
-    <br />
-    {{$package["insuranceDetail"]}}
-    <br />
-    {{$package["premium"]}}
-
-</body>
-</html> --}}
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <title>Insurance</title>
-    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" href="{{ public_path() . '/bootstrap.min.css' }}">
@@ -52,6 +15,32 @@
     {{-- <div class="container"> --}}
     {{-- <div style="margin:auto"> --}}
     <style>
+        @font-face{
+    font-family: 'THSarabunNew';
+    font-style: normal;
+    font-weight: normal;
+    src: url("{{ asset('fonts/THSarabunNew.ttf') }}") format('truetype');
+    }
+@font-face {
+    font-family: 'THSarabunNew';
+    font-style: normal;
+    font-weight: bold;
+    src: url("{{ asset('fonts/THSarabunNew Bold.ttf')}}") format('truetype');}
+@font-face {
+    font-family: 'THSarabunNew';
+    font-style: italic;
+    font-weight: normal;
+     src: url("{{ asset('fonts/THSarabunNew Italic.ttf') }}") format('truetype');}
+@font-face {
+    font-family: 'THSarabunNew';
+    font-style: italic;
+    font-weight: bold;
+     src: url("{{ asset('fonts/THSarabunNew BoldItalic.ttf') }}") format('truetype');
+}
+        body
+            {
+            font-family: "THSarabunNew";
+        }
         table {
             border-collapse: collapse;
             width: 100%;
@@ -90,7 +79,7 @@
                     <td>{{$data["lastname"]}}</td>
                 </tr>
                 <tr>
-                    <th>Citizen ID</th>
+                    <th>Identity</th>
                     <td> {{$data["govermentId"]}}</td>
                 </tr>
                 <tr>

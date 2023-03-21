@@ -32,10 +32,14 @@ Route::get('/package', [PackgesController::class, 'index']);
 Route::post('/package', [PackgesController::class, 'store']);
 
 
-Route::get('/loadPdf', [OrderController::class, 'loadPdf']);
+Route::get('/loadPdf/{id}', [OrderController::class, 'loadPdf']);
 Route::resource('/buy', OrderController::class); //get, get by userid, post(OrderStatus = 1), put(OrderStatus = 1) ,delete
 Route::post('/saveDraf' , [Ordercontroller::class, 'saveDraf']);
 Route::put('/updateDraf/{id}' , [Ordercontroller::class, 'updateDraf']);
+Route::get('/report/{userId}', [OrderController::class, 'getReport']);
+Route::get('/getOrder/{id}', [OrderController::class, 'orderId']);
+
+
 
 
 
