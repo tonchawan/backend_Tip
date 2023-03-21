@@ -9,7 +9,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class Pdf extends Mailable
+class PdfMail extends Mailable
 {
     use Queueable, SerializesModels;
     public $email;
@@ -25,15 +25,18 @@ class Pdf extends Mailable
      *
      * @return void
      */
-    public function __construct($email,$password,$firstname,$lastname,$detail,$beneficial,$address)
+    public function __construct($userId,$prefix,$name,$lastname,$email,$govermentId,
+    $created_at,$updated_at,$title)
     {
-        $this->email = $email;
-        $this->password = $password;
-        $this->firstname = $firstname;
+        $this->userId = $userId;
+        $this->prefix = $prefix;
+        $this->name = $name;
         $this->lastname = $lastname;
-        $this->detail = $detail;
-        $this->beneficial = $beneficial;
-        $this->address = $address;
+        $this->email = $email;
+        $this->govermentId = $govermentId;
+        $this->created_at = $created_at;
+        $this->updated_at = $updated_at;
+        $this->title = $title;
     }
     /**
      * Build the message.
@@ -43,16 +46,16 @@ class Pdf extends Mailable
     public function build()
     {
         return $this->subject('Thank you for subscribing to our newsletter')
-            ->markdown('emails.insurance-email')
-            ->with('username',$this->email)
-            ->with('password',$this->password)
-            ->with('firstname',$this->firstname)
+            ->markdown('emails.pdf')
+            ->with('userId',$this->userId)
+            ->with('prefix',$this->prefix)
+            ->with('name',$this->name)
             ->with('lastname',$this->lastname)
-            ->with('detail',$this->detail)
-            ->with('beneficial',$this->beneficial)
             ->with('email',$this->email)
-            ->with('address',$this->address)
-            ->with('premium',10000)
+            ->with('govermentId',$this->govermentId)
+            ->with('created_at',$this->created_at)
+            ->with('updated_at',$this->updated_at)
+            ->with('title',$this->title)
             ;
     }
 }

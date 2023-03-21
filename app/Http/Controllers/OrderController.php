@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\Package;
 use Illuminate\Http\Request;
+use App\Mail\PdfMail;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Mail;
 
@@ -155,7 +156,26 @@ class OrderController extends Controller
 
         $data['email'] = $request->email;
         $data['title'] = "Your Package From Dhipaya";
-        Mail::send('emails.pdf', $data, function($message)use($data, $pdf) {
+
+
+        Mail::to($data['email'])->send(
+
+            // Generate new email and use these variable
+            new PdfMail(
+                $request->userId,
+                $request->prefix,
+                $request->name,
+                $request->lastname,
+                $request->email,
+                $request->govermentId,
+                $request->created_at,
+                $request->updated_at,
+                $package->title,
+            ),
+
+            // also bring data
+            $data,
+            function($message)use($data, $pdf) {
             $message->to( $data['email'])
                     ->subject($data["title"])
                     ->attachData($pdf->output(), "invoided.pdf");
@@ -192,7 +212,7 @@ class OrderController extends Controller
 
         // Send email with PDF
         $data['email'] = $request->email;
-        $data['title'] = "Your Package From Dhipaya";
+        $data['title'] = "Thank you for Choosing [Insurance Company Name]";
         Mail::send('emails.pdf', $data, function($message)use($data, $pdf) {
             $message->to( $data['email'])
                     ->subject($data["title"])
