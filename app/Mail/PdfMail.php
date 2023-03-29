@@ -25,15 +25,15 @@ class PdfMail extends Mailable
      *
      * @return void
      */
-    public function __construct($userId,$prefix,$name,$lastname,$email,$govermentId,
+    public function __construct($user_id,$prefix,$name,$lastname,$email,$goverment_id,
     $created_at,$updated_at,$title)
     {
-        $this->userId = $userId;
+        $this->user_id = $user_id;
         $this->prefix = $prefix;
         $this->name = $name;
         $this->lastname = $lastname;
         $this->email = $email;
-        $this->govermentId = $govermentId;
+        $this->goverment_id = $goverment_id;
         $this->created_at = $created_at;
         $this->updated_at = $updated_at;
         $this->title = $title;
@@ -47,12 +47,12 @@ class PdfMail extends Mailable
     {
         return $this->subject('Thank you for subscribing to our newsletter')
             ->markdown('emails.pdf')
-            ->with('userId',$this->userId)
+            ->with('user_id',$this->user_id)
             ->with('prefix',$this->prefix)
             ->with('name',$this->name)
             ->with('lastname',$this->lastname)
             ->with('email',$this->email)
-            ->with('govermentId',$this->govermentId)
+            ->with('goverment_id',$this->goverment_id)
             ->with('created_at',$this->created_at)
             ->with('updated_at',$this->updated_at)
             ->with('title',$this->title)

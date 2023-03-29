@@ -21,9 +21,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string $phone
  * @property string $email
  * @property string $registerId
- * @property string $govermentId
+ * @property string $goverment_id
  * @property string $dateRegister
- * @property integer $packageId
+ * @property integer $package_id
  * @property string $created_at
  * @property string $updated_at
  */
@@ -45,7 +45,7 @@ class Customer extends Model
         'provience',
         'phone',
         'email',
-        'govermentId',
+        'goverment_id',
         'created_at',
         'updated_at'];
 }

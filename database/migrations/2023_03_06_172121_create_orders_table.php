@@ -14,23 +14,23 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
 
-            $table->Integer("userId")->nullable();
-            $table->foreign("userId")->references('id')->on('customers')->onDelete('cascade');
-            $table->Integer("packageId");
-            $table->foreign("packageId")->references('id')->on('packages')->onDelete('cascade');
+            $table->Integer("user_id")->nullable();
+            $table->foreign("user_id")->references('id')->on('customers')->onDelete('cascade');
+            $table->Integer("package_id");
+            $table->foreign("package_id")->references('id')->on('packages')->onDelete('cascade');
             $table->string("prefix")->nullable();
             $table->string("name")->nullable();
             $table->string("lastname")->nullable();
-            $table->string("govermentId");
+            $table->string("goverment_id");
             $table->string("sub_district")->nullable();
             $table->string("district")->nullable();
             $table->string("provience")->nullable();
             $table->string("email")->nullable();
             $table->date("dob")->nullable();
-            $table->string("startDate")->nullable();
-            $table->string("endDate")->nullable();
+            $table->string("start_date")->nullable();
+            $table->string("end_date")->nullable();
             $table->string("beneficial")->nullable();
-            $table->integer("OrderStatus")->nullable();
+            $table->integer("order_status")->nullable();
 
 
             $table->timestamps();

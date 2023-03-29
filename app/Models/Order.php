@@ -6,16 +6,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 /**
  * @property integer $id
- * @property string $userId
+ * @property string $user_id
  * @property string $name
  * @property string $lastname
  * @property string $prefix
- * @property string $govermentId
+ * @property string $goverment_id
  * @property string $address
  * @property string $email
  * @property string $dob
- * @property string $startDate
- * @property string $endDate
+ * @property string $start_date
+ * @property string $end_date
  * @property string $beneficial
  * @property string $created_at
  * @property string $updated_at
@@ -33,21 +33,21 @@ class Order extends Model
     }
 
     protected $fillable = [
-        'userId',
-        'packageId',
+        'user_id',
+        'package_id',
         'name',
         'lastname',
         'prefix',
-        'govermentId',
+        'goverment_id',
         'sub_district',
         'district',
         'provience',
         'email',
         'dob',
-        'startDate',
-        'endDate',
+        'start_date',
+        'end_date',
         'beneficial',
-        'OrderStatus',
+        'order_status',
         'created_at',
         'updated_at',
         'address',

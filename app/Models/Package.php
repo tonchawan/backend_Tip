@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property integer $id
  * @property string $title
  * @property string $premium
- * @property string $insuranceDetail
+ * @property string $insurance_detail
  * @property string $created_at
  * @property string $updated_at
  */
@@ -24,7 +24,7 @@ class Package extends Model
     protected $fillable = [
         'title',
         'premium',
-        'insuranceDetail',
+        'insurance_detail',
         'created_at',
         'updated_at'];
 }

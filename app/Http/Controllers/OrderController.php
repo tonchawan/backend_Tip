@@ -15,19 +15,18 @@ class OrderController extends Controller
     // get all Order detail
     public function index(Request $request)
     {
-
         $status = "Success";
         $resp = 200;
 
         $counTotal = Order::count(); //count how many order we hava
         $customers = Order::select(  // Select what can be visaulize
             'id',
-            'userId',
-            'packageId',
+            'user_id',
+            'package_id',
             'name',
             'lastname',
             'prefix',
-            'govermentId',
+            'goverment_id',
             'address',
             'sub_district',
             'district',
@@ -35,10 +34,10 @@ class OrderController extends Controller
             'postcode',
             'email',
             'dob',
-            'startDate',
-            'endDate',
+            'start_date',
+            'end_date',
             'beneficial',
-            'OrderStatus',
+            'order_status',
             'created_at',
             'updated_at'
         )->orderBy('id')->skip(0)->take(10)->get();
@@ -53,17 +52,17 @@ class OrderController extends Controller
     }
 
     // get Order detail by user id
-    public function show($userId)
+    public function show($user_id)
     {
         $status = "Success";
         $resp = 200;
 
         // use where to find user id
-        $order = Order::where('userId',$userId)
+        $order = Order::where('user_id',$user_id)
 
           // ->join('other table', 'forenkey', '=', 'otherTable.Pimary key')
-          ->join('packages', 'orders.packageId', '=', 'packages.id')
-          ->select('orders.*','packages.title', 'packages.insuranceDetail', 'packages.premium')
+          ->join('packages', 'orders.package_id', '=', 'packages.id')
+          ->select('orders.*','packages.title', 'packages.insurance_detail', 'packages.premium')
           ->get();
         // dd($order);
 
@@ -110,15 +109,14 @@ class OrderController extends Controller
             "response" => $resp,
         ], $resp);
     }
-
     //Down load PDF
     public function loadPdf(Request $request, $id){
         $status = "Success";
         $resp = 200;
         $order = Order::find($id);
-        $packageId= $order->packageId;
+        $package_id= $order->package_id;
 
-        $package = Package::find($packageId);
+        $package = Package::find($package_id);
       // dd($order);
 
        $pdf = Pdf::loadView('invoice',[
@@ -137,14 +135,14 @@ class OrderController extends Controller
         $resp = 200;
         // dd($request);
 
-        $packageId= $request->packageId;
+        $package_id= $request->package_id;
         $datas = $request->all();
-        $package = Package::find($packageId);
+        $package = Package::find($package_id);
         // dd($package);
 
         Order::create($datas)
         // after Create order update user status
-            ->update(['OrderStatus' => 1]);
+            ->update(['order_status' => 1]);
         // dd($request->email);
 
         // Generate PDF
@@ -180,9 +178,9 @@ class OrderController extends Controller
         if($order){
             $order->update($request->all());
 
-            // find package id from packageId
-            $packageId= $request->packageId;
-            $package = Package::find($packageId);
+            // find package id from package_id
+            $package_id= $request->package_id;
+            $package = Package::find($package_id);
 
         // Generate PDF
         $pdf = Pdf::loadView('invoice',[
@@ -202,7 +200,7 @@ class OrderController extends Controller
 
         // force what ever input come. Change it to 1
         Order::find($id)
-        ->update(['OrderStatus' => 1]);
+        ->update(['order_status' => 1]);
 
         }else{
             $status = "Error";
@@ -228,11 +226,11 @@ class OrderController extends Controller
 
         // post data to data base and update Order status to 0
         $datas = $request->all();
-        Order::create($datas)->update(['OrderStatus' => 0]);
+        Order::create($datas)->update(['order_status' => 0]);
 
-        // find package id from packageId
-        $packageId= $request->packageId;
-        $package = Package::find($packageId);
+        // find package id from package_id
+        $package_id= $request->package_id;
+        $package = Package::find($package_id);
 
         return response()
         ->json([
@@ -242,7 +240,6 @@ class OrderController extends Controller
             "package" =>$package
         ], $resp);
         // dd($request->all());
-
     }
 
     // update data to data base
@@ -254,21 +251,19 @@ class OrderController extends Controller
         if($order){
             $order->update($request->all());
 
-             // find package id from packageId
-             $packageId= $request->packageId;
-             $package = Package::find($packageId);
-
+             // find package id from package_id
+             $package_id= $request->package_id;
+             $package = Package::find($package_id);
 
         // force what ever input come. Change it to 0
         Order::find($id)
-        ->update(['OrderStatus' => 0]);
+        ->update(['order_status' => 0]);
 
         }else{
             $status = "Error";
             $resp = 400;
             $package= "Not select";
         }
-
         return response() ->json([
             "status_PHPHPHP"=>$status,
             "response"=>$resp,
@@ -280,16 +275,16 @@ class OrderController extends Controller
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
      // Update buy order in database
-     public function getReport($userId){
+     public function getReport($user_id){
         $status = "Success";
         $resp = 200;
 
         // use where to find user id
-        $order = Order::where('userId',$userId)
+        $order = Order::where('user_id',$user_id)
 
         // ->join('other table', 'forenkey', '=', 'otherTable.Pimary key')
-            ->join('packages', 'orders.packageId', '=', 'packages.id')
-            ->select('orders.*','packages.title', 'packages.insuranceDetail', 'packages.premium')
+            ->join('packages', 'orders.package_id', '=', 'packages.id')
+            ->select('orders.*','packages.title', 'packages.insurance_detail', 'packages.premium')
             ->get();
 
         // dd($order);

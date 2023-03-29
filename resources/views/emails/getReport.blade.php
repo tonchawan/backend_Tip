@@ -63,13 +63,13 @@
                 <tr>
                     <th scope="row">{{$item["id"]}}</th>
                     <td> {{$item["title"]}}</td>
-                    <td>{{$item["insuranceDetail"]}}</td>
+                    <td>{{$item["insurance_detail"]}}</td>
                     <td> {{$item["premium"]}}</td>
                     <td> {{$item["name"]}}</td>
                     <td> {{$item["lastname"]}}</td>
                     <td> {{$item["created_at"]->format('Y-m-d')}}</td>
                     <td> {{$item["updated_at"]->format('Y-m-d')}}</td>
-                    @if ($item->OrderStatus == 1)
+                    @if ($item->order_status == 1)
                         <td>
                             Purchase
                         </td>

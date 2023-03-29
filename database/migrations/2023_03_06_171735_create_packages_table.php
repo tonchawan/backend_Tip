@@ -16,7 +16,7 @@ return new class extends Migration
 
             $table->string("title");
             $table->string("premium");
-            $table->string("insuranceDetail");
+            $table->string("insurance_detail");
 
             $table->timestamps();
         });

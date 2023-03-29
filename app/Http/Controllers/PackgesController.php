@@ -17,7 +17,6 @@ class PackgesController extends Controller
      */
     public function index(Request $request)
     {
-
         $status = "Success";
         $resp = 200;
 
@@ -26,7 +25,7 @@ class PackgesController extends Controller
             'id',
             'title',
             'premium',
-            'insuranceDetail'
+            'insurance_detail'
         )->orderBy('id')->skip(0)->take(10)->get();
 
         return response()->json([
@@ -44,7 +43,6 @@ class PackgesController extends Controller
         // dd($request);
 
         $datas = $request->all();
-
 
         Package::create($datas);
         return response()

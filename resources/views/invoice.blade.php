@@ -80,7 +80,7 @@
                 </tr>
                 <tr>
                     <th>Identity</th>
-                    <td> {{$data["govermentId"]}}</td>
+                    <td> {{$data["goverment_id"]}}</td>
                 </tr>
                 <tr>
                     <th>Email</th>
@@ -132,7 +132,7 @@
                 </tr>
                 <tr>
                     <th>Desc</th>
-                    <td>{{$package["insuranceDetail"]}}</td>
+                    <td>{{$package["insurance_detail"]}}</td>
                 </tr>
                 <tr>
                     <th>Coverage</th>
